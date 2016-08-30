@@ -40,6 +40,18 @@ class BloxorzSuite extends FunSuite {
     val optsolution = List(Right, Right, Down, Right, Right, Right, Down)
   }
 
+  trait Level0 extends SolutionChecker {
+    /* terrain for level 1*/
+
+    val level =
+      """So
+        |oo
+        |oo
+        |To""".stripMargin
+
+    val optsolution = List(Down, Down)
+  }
+
 
   test("terrain function level 1") {
     new Level1 {
@@ -91,6 +103,19 @@ class BloxorzSuite extends FunSuite {
     }
   }
 
+  test("paths from start") {
+    new Level0 {
+      val expected = Stream((Block(Pos(1,1),Pos(2,1)),List(Right, Down)), (Block(Pos(3,0),Pos(3,0)),List(Down, Down)), (Block(Pos(0,1),Pos(0,1)),List(Up, Right, Down)), (Block(Pos(3,1),Pos(3,1)),List(Down, Right, Down)))
+      assert(expected === pathsFromStart)
+    }
+  }
+
+  test("paths to goal") {
+    new Level0 {
+      val expected = Stream((Block(Pos(3,0),Pos(3,0)),List(Down, Down)))
+      assert(expected === pathsToGoal)
+    }
+  }
 
   test("optimal solution for level 1") {
     new Level1 {
